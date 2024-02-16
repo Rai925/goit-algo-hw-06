@@ -12,8 +12,10 @@ class Field:
         return str(self.value)
 
 class Name(Field):
-    def __init__(self, name: str):
-        super().__init__(name)
+    def __init__(self, value: str):
+        if not value.strip():
+            raise ValueError(f"{Fore.RED}Name cannot be an empty string{Style.RESET_ALL}")
+        super().__init__(value)
 
 class Phone(Field):
     def __init__(self, value: str):
