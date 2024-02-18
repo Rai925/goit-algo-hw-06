@@ -1,11 +1,10 @@
 from typing import List
 from collections import UserDict
-from colorama import Fore, Style
 
 class Field:
     def __init__(self, value: str):
         if not value:
-            raise ValueError(f"{Fore.RED}Value cannot be empty{Style.RESET_ALL}")
+            raise ValueError
         self.value = value
 
     def __str__(self):
@@ -14,13 +13,13 @@ class Field:
 class Name(Field):
     def __init__(self, value: str):
         if not value.strip():
-            raise ValueError(f"{Fore.RED}Name cannot be an empty string{Style.RESET_ALL}")
+            raise ValueError
         super().__init__(value)
 
 class Phone(Field):
     def __init__(self, value: str):
         if not value.isdigit() or len(value) != 10:
-            raise ValueError(f"{Fore.RED}Phone number must be a 10-digit string{Style.RESET_ALL}")
+            raise ValueError
         super().__init__(value)
 
 class Record:
