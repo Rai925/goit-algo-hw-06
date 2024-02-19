@@ -24,7 +24,7 @@ class Phone(Field):
 
 class Record:
     def __init__(self, name: Name):
-        self.name = name
+        self.name = Name(name)
         self.phones: List[Phone] = []
 
     def add_phone(self, phone_number: str):
@@ -34,10 +34,16 @@ class Record:
         self.phones = [phone for phone in self.phones if phone.value != phone_number]
 
     def edit_phone(self, old_phone_number: str, new_phone_number: str):
+        if not new_phone_number.isdigit() or len(new_phone_number) != 10:
+            raise ValueError
+        phone_exists = False
         for phone in self.phones:
             if phone.value == old_phone_number:
+                phone_exists = True
                 phone.value = new_phone_number
                 break
+        if not phone_exists:
+            raise ValueError
 
     def find_phone(self, phone_number: str) -> Phone:
         for phone in self.phones:
